@@ -13,9 +13,12 @@
 <p>Confira algumas telas do WorkUP e veja como o aplicativo funciona:</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px;">
 <img src="https://github.com/EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/cadastro.jpg" alt="Tela inicial" style="width: 200px; height: auto;">
-<img src="https://raw.githubusercontent.com/Vinidevkz/AppWorkUPTCC/v1/assets/screenshots/Profile.jpeg" alt="Perfil" style="width: 200px; height: auto;">
-<img src="https://raw.githubusercontent.com/Vinidevkz/AppWorkUPTCC/v1/assets/screenshots/Config%20Menu.jpeg" alt="Menu de configurações" style="width: 200px; height: auto;">
-<img src="https://raw.githubusercontent.com/Vinidevkz/AppWorkUPTCC/v1/assets/screenshots/Vaga.jpeg" alt="Detalhes da vaga" style="width: 200px; height: auto;">
-<img src="https://raw.githubusercontent.com/Vinidevkz/AppWorkUPTCC/v1/assets/screenshots/Chat.jpeg" alt="Chat com empresas" style="width: 200px; height: auto;">
+<img src="https://github.com/EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/cadastro1.png" alt="Perfil" style="width: 200px; height: auto;">
+<img src="https://github.com/EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/cadastro2.jpg" alt="Menu de configurações" style="width: 200px; height: auto;">
+<img src="https://github.com/EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/cadastroVaga.jpg" alt="Detalhes da vaga" style="width: 200px; height: auto;">
+<img src="https://github.com/EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/candidatosVaga.jpg" alt="Chat com empresas" style="width: 200px; height: auto;">
+<img src="https://github.com/EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/editarVaga.jpg" alt="Chat com empresas" style="width: 200px; height: auto;">
+<img src="https://github.com/EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/home.jpg" alt="Chat com empresas" style="width: 200px; height: auto;">
+<img src="https://github.com/EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/homeVaga.jpg" alt="Chat com empresas" style="width: 200px; height: auto;">
 </div>
 </div>
