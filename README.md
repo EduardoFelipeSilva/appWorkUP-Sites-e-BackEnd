@@ -8,7 +8,7 @@
 <p>O aplicativo foi desenvolvido utilizando <strong>React Native</strong> e <strong>JavaScript</strong>, tecnologias modernas que garantem uma experiência rápida, responsiva e intuitiva.</p>
 <h2>Repositório do Site e Back-End</h2>
 <p>O site foi criado para que empresas possam publicar vagas de emprego e gerenciar o recrutamento de candidatos. Todo o back-end e a API responsáveis por fornecer dados e gerenciar a aplicação estão disponíveis neste repositório:</p>
-<a href="https://github.com/Vinidevkz/appWorkUP-Sites-e-BackEnd" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">Acesse o repositório do site e back-end</a>
+<a href="https://github.com/EduardoFelipeSilva/AppWorkUPTCC" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">Acesse o repositório do App</a>
 <h1>Telas do Aplicativo</h1>
 <p>Confira algumas telas do WorkUP e veja como o aplicativo funciona:</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px;">
