@@ -12,7 +12,7 @@
 <h1>Telas do Aplicativo</h1>
 <p>Confira algumas telas do WorkUP e veja como o aplicativo funciona:</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px;">
-<img src="https://raw.githubusercontent.com/Vinidevkz/AppWorkUPTCC/v1/assets/screenshots/Home%20Page.jpeg" alt="Tela inicial" style="width: 200px; height: auto;">
+<img src="EduardoFelipeSilva/appWorkUP-Sites-e-BackEnd/blob/main/assets/screenshots/cadastro.jpg" alt="Tela inicial" style="width: 200px; height: auto;">
 <img src="https://raw.githubusercontent.com/Vinidevkz/AppWorkUPTCC/v1/assets/screenshots/Profile.jpeg" alt="Perfil" style="width: 200px; height: auto;">
 <img src="https://raw.githubusercontent.com/Vinidevkz/AppWorkUPTCC/v1/assets/screenshots/Config%20Menu.jpeg" alt="Menu de configurações" style="width: 200px; height: auto;">
 <img src="https://raw.githubusercontent.com/Vinidevkz/AppWorkUPTCC/v1/assets/screenshots/Vaga.jpeg" alt="Detalhes da vaga" style="width: 200px; height: auto;">
