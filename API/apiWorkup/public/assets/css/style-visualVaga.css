@@ -1,0 +1,62 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    min-height: 100vh;
+    background-image: url("../img/homeEmpresa/fundo-visualVaga.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#editar-vaga {
+    padding-top: 4rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-vaga {
+    width: 50rem;
+    height: 36rem;
+    background-color: var(--f4);
+    border-radius: 0.5rem;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+}
+
+.wrap-vaga {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.body-vaga {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.box-vaga .row .col div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.botoes {
+    height: 3rem;
+    border-style: none;
+}
+
+.registrar {
+    background-color: #20dd77;
+    color: #fff;
+}

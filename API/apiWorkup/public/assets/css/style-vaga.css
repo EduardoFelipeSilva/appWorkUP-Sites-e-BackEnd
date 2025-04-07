@@ -1,0 +1,97 @@
+body {
+    overflow-x: hidden !important;
+    background-color: var(--ed);
+}
+
+#vaga {
+    margin-top: 4rem;
+    height: 100%;
+    background-color: var(--ed);
+}
+
+.row-vaga {
+    min-height: 92vh;
+}
+
+.col-vaga-1, .col-vaga-2, form {
+    display: grid;
+    place-items: center;
+}
+
+.box-vaga {
+    width: 90%;
+    height: 41rem;
+    background-color: var(--f4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vaga-wrap {
+    width: 85%;
+}
+
+.vaga-wrap, .wrap-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.wrap-body {
+    gap: 0.8rem;
+}
+
+.vaga-wrap .row .col {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container select {
+    border-style: none;
+    width: 100%;
+    padding: 0.3rem 1rem;
+    border-left: 3px solid var(--verde);
+}
+
+.input-container select {
+    color: #535353;
+}
+
+.input-container select option {
+    color: #535353;
+}
+
+.wrap-footer {
+    margin-top: 1rem;
+    width: 100%;
+    height: 3rem;
+}
+
+.wrap-footer, .enviar {
+    display: flex;
+    justify-content: center;
+}
+
+.enviar {
+    background-color: var(--verde);
+    width: 40%;
+    color: #fff;
+}
+
+.col-vaga-2 {
+    background-image: url("../img/fundo-vaga.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.box-lembrete {
+    background-color: #fff;
+    width: 15rem;
+    height: 15rem;
+    box-shadow: 0px 0px 20px 3px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

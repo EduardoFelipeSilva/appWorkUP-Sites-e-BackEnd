@@ -1,0 +1,83 @@
+#login {
+    height: 100vh;
+}
+
+.col-login-1, .col-login-2 {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.col-login-1 {
+    background-image: url("../img/login/fundo-index-1.png");
+}
+
+.imgs-login {
+    width: 95%;
+    height: 80%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#logo {
+    width: 40%;
+}
+
+#notebook {
+    width: 100%;
+}
+
+.col-login-2 {
+    background-image: url("../img/login/fundo-index-2.png");
+}
+
+.box-login {
+    background-color: var(--branco);
+    width: 45%;
+    height: 28rem;
+    border-radius: 5px;
+}
+
+.wrap-box-login {
+    width: 70%;
+    height: 80%;
+    justify-content: space-between;
+}
+
+.body-box-login .col-12 {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-box-login {
+    justify-content: space-around;
+    gap: 0.5rem;
+}
+
+#logar {
+    background-color: var(--verde);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+#logar:hover {
+    background-color: var(--verde-hover);
+}
+
+#logar a {
+    text-decoration: none;
+    color: #fff;
+}
+
+
+/*-- Propriedades repetidas --*/
+
+.imgs-login, .wrap-box-login, .body-box-login .col-12, .footer-box-login {
+    display: flex;
+    flex-direction: column;
+}
+
+.col-login-1, .col-login-2, .box-login {
+    display: grid;
+    place-items: center;
+}

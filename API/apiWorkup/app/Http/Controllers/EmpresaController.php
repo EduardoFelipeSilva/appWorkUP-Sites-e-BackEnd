@@ -1,0 +1,351 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Admin;
+use App\Models\AreaEmpresa;
+use App\Models\Empresa;
+use App\Models\Vaga;
+use App\Models\VagaUsuario;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
+class EmpresaController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $empresas = Empresa::with(['status', 'areas'])->get(); // Carrega as relações necessárias
+
+        // Caso contrário, retorna a view com os usuários
+        return view('admin.empresa.empresaAdmin', [
+            'empresas'=>$empresas,]);
+    }
+
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('cadastroEmpresa');
+    }
+
+    public function area()
+    {
+        return view('cadastrarAreaEmpresa');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // Habilita o log de consultas para depuração
+        DB::enableQueryLog();
+    
+        DB::beginTransaction(); // Inicia uma transação
+    
+        try {
+            /*
+            |--------------------------------------------------------------------------
+            | Validação dos Dados da Empresa
+            |--------------------------------------------------------------------------
+            */
+    
+            $request->validate(
+                [
+                    'usernameEmpresa' => 'required|unique:tb_empresa,usernameEmpresa',
+                    'nomeEmpresa' => 'required',
+                    'emailEmpresa' => 'required|unique:tb_empresa,emailEmpresa',
+                    'sobreEmpresa' => 'required',
+                    'cnpjEmpresa' => 'required|unique:tb_empresa,cnpjEmpresa',
+                    'contatoEmpresa' => 'required',
+                    'senhaEmpresa' => 'required',
+                    'cidadeEmpresa' => 'required',
+                    'estadoEmpresa' => 'required',
+                    'LogradouroEmpresa' => 'required',
+                    'cepEmpresa' => 'required|min:8',
+                    'numeroLograEmpresa' => 'required',
+                    'idArea' => 'required|array',
+                    'idArea.*' => 'exists:tb_area,idArea' // Verifica se as áreas existem na tabela
+                ],
+                [
+                    'usernameEmpresa.required' => 'Digite um APELIDO',
+                    'usernameEmpresa.unique' => 'Este apelido já existe!',
+                    'nomeEmpresa.required' => 'Digite um nome!',
+                    'sobreEmpresa.required' => 'Digite uma descrição sobre a empresa!',
+                    'cnpjEmpresa.required' => 'Digite um CNPJ!',
+                    'cnpjEmpresa.unique' => 'Este CNPJ já está registrado!',
+                    'contatoEmpresa.required' => 'Informe um e-mail ou telefone para contato!',
+                    'emailEmpresa.required' => 'Digite um email!',
+                    'emailEmpresa.unique' => 'Este e-mail já está registrado!',
+                    'senhaEmpresa.required' => 'Digite uma senha!',
+                    'cidadeEmpresa.required' => 'Digite uma cidade',
+                    'estadoEmpresa.required' => 'Digite um estado',
+                    'LogradouroEmpresa.required' => 'Digite um logradouro',
+                    'cepEmpresa.required' => 'Digite um cep',
+                    'numeroLograEmpresa.required' => 'Digite um número',
+                    'idArea.required' => 'Escolha pelo menos uma área',
+                    'idArea.array' => 'Área inválida',
+                    'idArea.*.exists' => 'Uma ou mais áreas selecionadas não existem'
+                ]
+            );
+    
+            /*
+            |--------------------------------------------------------------------------
+            | Criação e Salvamento dos Dados da Empresa
+            |--------------------------------------------------------------------------
+            */
+    
+            $empresa = new Empresa();
+            $empresa->usernameEmpresa = $request->usernameEmpresa;
+            $empresa->nomeEmpresa = $request->nomeEmpresa;
+            $empresa->emailEmpresa = $request->emailEmpresa;
+            $empresa->sobreEmpresa = $request->sobreEmpresa;
+            $empresa->cnpjEmpresa = $request->cnpjEmpresa;
+            $empresa->contatoEmpresa = $request->contatoEmpresa;
+            $empresa->senhaEmpresa = Hash::make($request->senhaEmpresa);
+            $empresa->cidadeEmpresa = $request->cidadeEmpresa;
+            $empresa->estadoEmpresa = $request->estadoEmpresa;
+            $empresa->LogradouroEmpresa = $request->LogradouroEmpresa;
+            $empresa->cepEmpresa = $request->cepEmpresa;
+            $empresa->numeroLograEmpresa = $request->numeroLograEmpresa;
+            $empresa->idStatus = 3;
+            $empresa->fotoEmpresa = $request->fotoUrl;
+            $empresa->bannerEmpresa = $request->fotoBanner;
+    
+            $empresa->save();
+    
+            /*
+            |--------------------------------------------------------------------------
+            | Salvamento das Áreas Associadas
+            |--------------------------------------------------------------------------
+            */
+    
+            foreach ($request->idArea as $idArea) {
+                $areaEmpresa = new AreaEmpresa();
+                $areaEmpresa->idArea = $idArea;
+                $areaEmpresa->idEmpresa = $empresa->idEmpresa; // Usa o ID da empresa recém-criada
+                $areaEmpresa->save();
+            }
+    
+            DB::commit(); // Confirma a transação
+    
+            // Redireciona para o login com mensagem de sucesso
+            return redirect()->route('login')->with('success', 'Cadastro concluído. Aguarde a liberação do Admin!');
+    
+        } catch (\Exception $e) {
+            DB::rollBack(); // Reverte a transação em caso de erro
+    
+            // Log de erro: se algo deu errado
+            Log::error('Erro ao salvar áreas ou empresa', ['exception' => $e]);
+    
+            // Captura o erro e retorna uma mensagem amigável
+            return back()->withErrors(['error' => 'Erro ao salvar: ' . $e->getMessage()]);
+        }
+    }
+    
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        // Busca a empresa pelo ID passado na URL
+        $empresa = Empresa::where('idEmpresa', $id)->with('areas')->first();
+    
+        if (!$empresa) {
+            return redirect()->route('empresas.index')->with('error', 'Empresa não encontrada');
+        }
+    
+        // Retorna a view com os dados da empresa
+        return view('admin.empresa.allempresaAdmin', compact('empresa'));
+    }
+    
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $empresa = Empresa::findOrFail($id); // Encontra o usuário pelo ID ou lança um erro 404
+
+
+        return view('admin.empresa.empresaEditarAdmin', compact('empresa')); // Passa o usuário para a view
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $empresa = Empresa::where('idEmpresa', $id)->get()->first();
+
+
+        DB::table('tb_empresa')
+            ->where('idEmpresa', $id)
+            ->update([
+                'nomeEmpresa' => $request->nomeEmpresa,
+                'usernameEmpresa' => $request->usernameEmpresa,
+                'emailEmpresa' => $request->emailEmpresa,
+                'contatoEmpresa' => $request->contatoEmpresa,
+                'sobreEmpresa' => $request->sobreEmpresa,
+                'cidadeEmpresa' => $request->cidadeEmpresa,
+                'estadoEmpresa' => $request->estadoEmpresa,
+                'LogradouroEmpresa' => $request->LogradouroEmpresa,
+                'cepEmpresa' => $request->cepEmpresa,
+                'numeroLograEmpresa' => $request->numeroLograEmpresa,
+
+            ]);
+
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Empresa atualizado com sucesso']); // Retorna JSON se for uma requisição AJAX
+        }
+
+        // Caso contrário, retorna a view com os usuários
+
+        $empresas = Empresa::findOrFail($id);
+        $empresas->update($request->all());
+
+        $areasSelecionadas = $request->input('idArea', []); // array de IDs selecionados ou vazio
+
+        // Atualiza as áreas da empresa
+        $empresa->areas()->sync($areasSelecionadas);
+
+    
+        // Redirecionar para a lista de usuários
+        return view('dashboardEmpresa', ['empresa' => $empresas]); // Passa o usuário para a view
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+        // Encontra a empresa pelo ID
+        $empresa = Empresa::findOrFail($id);
+    
+        // Atualiza o status da empresa para 2
+        $empresa->update(['idStatus' => 2]);
+    
+        // Verifica se a requisição foi feita via AJAX
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Empresa atualizada com sucesso']);
+        }
+    
+        // Redireciona para a lista de empresas com mensagem de sucesso
+        return redirect('/admin/empresa/listar')->with('success', 'Empresa atualizada com sucesso.');
+    }
+
+    public function aprovar(Request $request, $id)
+    {
+        // Encontra a empresa pelo ID
+        $empresa = Empresa::findOrFail($id);
+    
+        // Atualiza o status da empresa para 2
+        $empresa->update(['idStatus' => 1]);
+    
+        // Verifica se a requisição foi feita via AJAX
+        if ($request->ajax()) {
+            return response()->json(['message' => 'Empresa atualizada com sucesso']);
+        }
+    
+        // Redireciona para a lista de empresas com mensagem de sucesso
+        return redirect('/admin/empresa/listar')->with('success', 'Empresa atualizada com sucesso.');
+    }
+
+
+    public function showEmpresaApp($id)
+    {
+        $empresa = Empresa::where('idEmpresa', $id)->first();
+    
+        if ($empresa) {
+            return response()->json($empresa, 200);
+        } else {
+            return response()->json(['message' => 'Empresa não encontrada'], 404);
+        }
+    }
+    
+
+    public function dashboard(){
+
+            $idEmpresa = Auth::guard('empresa')->id();
+            $empresa = Empresa::select('*')->where('idEmpresa', $idEmpresa)->first();
+
+ 
+
+            $posts = DB::table('tb_publicacao')
+            ->where('tb_publicacao.idEmpresa', $idEmpresa)
+            ->select('tituloPublicacao', 'detalhePublicacao', 'fotoPublicacao')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+
+            return view('dashboardEmpresa', ['empresa'=>$empresa,'posts'=> $posts]);
+        
+    }
+
+    public function showVagasPorEmpresa()
+    {
+       // Verifica se o usuário está autenticado
+       if (!Auth::guard('empresa')->check()) {
+           return redirect()->route('login'); // Redireciona para a página de login se não estiver autenticado
+       }
+
+       $empresaId = Auth::guard('empresa')->id(); // Pega o ID da empresa autenticada
+
+
+       // Busca todas as vagas cadastradas pela empresa
+       $vagas = Vaga::where('idEmpresa', $empresaId)->with('status', 'area', 'modalidade')->get();
+
+       return view('homeEmpresa', compact('vagas')); // Passa a variável $vagas para a view
+   }
+
+
+   // UsuarioController.php
+public function buscarEmpresa(Request $request)
+{
+    $nome = $request->get('nome');
+    $empresa = Empresa::where('nomeEmpresa', 'LIKE', "%{$nome}%")->first();
+
+    if ($empresa) {
+        return response()->json([
+            'status' => 'success',
+            'empresa' => $empresa,
+        ]);
+    }
+
+    return response()->json([
+        'status' => 'error',
+        'message' => 'Empresa não encontrada',
+    ]);
+}
+}
+

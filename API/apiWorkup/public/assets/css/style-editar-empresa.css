@@ -1,0 +1,113 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#editar-empresa {
+    margin-top: 4rem;
+    width: 100vw;
+    height:90vh;
+    background-color: #f4f4f4;
+    display: grid;
+    place-items: center;
+}
+
+.box-editar-empresa {
+    background-color: #fff;
+    width: 85%;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    padding: 1rem 0;
+}
+
+.main-editar-empresa {
+    display: flex;
+    flex-direction: column;
+}
+
+.box-editar-empresa h5 {
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #242424;
+}
+
+.wrap-editar-empresa {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+}
+
+.body-editar-empresa {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 80%;
+}
+
+.col-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.col-edit label {
+    font-weight: 350;
+}
+
+.col-edit input, .col-edit textarea {
+    background-color: #f3f3f3;
+    padding: 0.3rem 0.8rem;
+    border-style: none;
+    font-size: 1rem;
+    font-weight: 350;
+    color: #505050;
+}
+
+.col-edit textarea {
+    resize: none;
+}
+
+.checkbox-container {
+    height: 5rem;
+}
+
+#imagePreview {
+    border-radius: 20rem;
+}
+
+#fileInput {
+    background-color: #d2d2d2;
+    font-size: 0.8rem;
+    padding: 0.3rem;
+    border-radius: 10px;
+    color: #242424;
+}
+
+.footer-editar-empresa {
+    width: 80%;
+    align-self: center;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-editar-empresa button, .footer-editar-empresa input {
+    border-style: none;
+    width: 45%;
+    height: 2rem;
+}
+
+.footer-editar-empresa input {
+    color: #fff;
+    background-color: #20dd77;
+    text-decoration: none;
+    display: grid;
+    place-items: center;
+}
